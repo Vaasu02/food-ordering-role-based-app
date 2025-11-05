@@ -1,13 +1,10 @@
-// backend/models/User.js
 
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken'); // <--- Ensure this is required
+const jwt = require('jsonwebtoken'); 
 
-// ------------------------------------------------------------------
-// 1. DEFINE THE SCHEMA
-// ------------------------------------------------------------------
-const UserSchema = new mongoose.Schema({ // <--- UserSchema is defined here
+
+const UserSchema = new mongoose.Schema({ 
   name: {
     type: String,
     required: [true, 'Please provide a name'],
@@ -43,11 +40,6 @@ const UserSchema = new mongoose.Schema({ // <--- UserSchema is defined here
   timestamps: true
 });
 
-// ------------------------------------------------------------------
-// 2. DEFINE METHODS/HOOKS ON THE SCHEMA OBJECT
-// ------------------------------------------------------------------
-
-// Mongoose Middleware (Pre-save hook for password hashing)
 UserSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
     return next();
@@ -57,14 +49,12 @@ UserSchema.pre('save', async function (next) {
   next();
 });
 
-// Instance Method for Password Comparison (Used in Login)
 UserSchema.methods.comparePassword = async function (candidatePassword) {
   const isMatch = await bcrypt.compare(candidatePassword, this.password);
   return isMatch;
 };
 
-// Instance Method for JWT Generation (This is what line 6 was referring to)
-UserSchema.methods.createJWT = function () { // <--- This must come AFTER the schema definition
+UserSchema.methods.createJWT = function () { 
   return jwt.sign(
     { 
       userId: this._id, 
@@ -79,7 +69,5 @@ UserSchema.methods.createJWT = function () { // <--- This must come AFTER the sc
 };
 
 
-// ------------------------------------------------------------------
-// 3. EXPORT THE MODEL
-// ------------------------------------------------------------------
+
 module.exports = mongoose.model('User', UserSchema);

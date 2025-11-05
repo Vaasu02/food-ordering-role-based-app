@@ -1,11 +1,6 @@
-// backend/controllers/paymentController.js
-
 const PaymentMethod = require('../models/PaymentMethod');
 const { StatusCodes } = require('http-status-codes');
 
-// ------------------------------------------------------------------
-// 1. POST /api/payments (Create Payment Method) - Admin Only
-// ------------------------------------------------------------------
 const createPaymentMethod = async (req, res) => {
   const { label, type, token } = req.body;
 
@@ -26,11 +21,7 @@ const createPaymentMethod = async (req, res) => {
   });
 };
 
-// ------------------------------------------------------------------
-// 2. GET /api/payments (List Payment Methods) - Admin Only
-// ------------------------------------------------------------------
 const getPaymentMethods = async (req, res) => {
-  // Since the 'authorize' middleware ensures only Admin reaches here, we simply fetch all
   const paymentMethods = await PaymentMethod.find({});
 
   res.status(StatusCodes.OK).json({

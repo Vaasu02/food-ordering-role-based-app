@@ -1,8 +1,7 @@
-// backend/models/Restaurant.js
 
 const mongoose = require('mongoose');
 
-// 1. Define the Schema for a single Menu Item (embedded within Restaurant)
+
 const MenuItemSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -18,9 +17,9 @@ const MenuItemSchema = new mongoose.Schema({
     required: [true, 'Menu item must have a price.'],
     min: [0.01, 'Price must be greater than zero.'],
   },
-}, { _id: true }); // Keep separate IDs for menu items if needed later
+}, { _id: true });
 
-// 2. Define the main Restaurant Schema
+
 const RestaurantSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -33,7 +32,7 @@ const RestaurantSchema = new mongoose.Schema({
     required: [true, 'Restaurant must be assigned a country.'],
   },
   menuItems: {
-    type: [MenuItemSchema], // Array of embedded Menu Item documents
+    type: [MenuItemSchema],
     default: [],
   }
 }, {

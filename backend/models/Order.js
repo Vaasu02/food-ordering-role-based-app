@@ -1,8 +1,6 @@
-// backend/models/Order.js
 
 const mongoose = require('mongoose');
 
-// Schema for the items in the order (similar to menu items, but can be customized per order)
 const OrderItemSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -23,16 +21,16 @@ const OrderItemSchema = new mongoose.Schema({
 const OrderSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', // Links this order to the User who placed it
+    ref: 'User', 
     required: true,
   },
   items: {
-    type: [OrderItemSchema], // Array of ordered items
+    type: [OrderItemSchema], 
     required: true,
   },
   status: {
     type: String,
-    enum: ['Pending', 'Confirmed', 'Cancelled', 'Completed'], // Possible order states
+    enum: ['Pending', 'Confirmed', 'Cancelled', 'Completed'],
     default: 'Pending',
   },
   totalAmount: {

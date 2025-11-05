@@ -1,4 +1,3 @@
-// backend/models/PaymentMethod.js
 
 const mongoose = require('mongoose');
 
@@ -14,12 +13,12 @@ const PaymentMethodSchema = new mongoose.Schema({
     default: 'Credit Card',
   },
   token: {
-    // This is the dummy token field as required by the assignment
+    
     type: String,
     required: [true, 'A dummy token is required.'],
   },
 }, {
-  timestamps: true // Adds createdAt and updatedAt fields
+  timestamps: true 
 });
 
 module.exports = mongoose.model('PaymentMethod', PaymentMethodSchema);
